@@ -1,0 +1,8 @@
+Exemplo de execução: executavel < dataset.txt
+dataset tem q tar no msm dir
+versao de release
+cmd
+
+cd C:\Users\PCprincipal\Documents\Testes DEV\knn
+
+knn.exe < dataset.txt

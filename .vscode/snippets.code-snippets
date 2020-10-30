@@ -1,0 +1,14 @@
+{
+  "Linha De Marcação": {
+    "scope": "html,javascript",
+    "prefix": "dhr",
+    "body": ["document.write('<hr>');"],
+    "description": "<hr> para linha de marcação horizontal"
+  },
+  "Saida No Console": {
+    "scope": "html,javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "con",
+    "body": ["console.log('$0');"],
+    "description": "saida para console"
+  }
+}

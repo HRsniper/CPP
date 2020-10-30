@@ -1,0 +1,37 @@
+#include <iostream>
+#include <bits/stdc++.h>//biblioteca bits/stdc++.h, com ela não é necessário usar nenhum include para as bibliotecas padrões, basta um inlude a mais nada.
+
+using namespace std;
+
+int main(int argc, char const *argv[]){
+///////////////////////////////////////////////////////////
+    pair<int,int> par;//<utility>
+    par=make_pair(10,5);
+    cout << par.first << " - " << par.second << endl;
+///////////////////////////////////////////////////////////
+cout << endl;
+///////////////////////////////////////////////////////////
+    vector<int> vt{1,2,3,4,5};//<vector>
+        for (auto &&i : vt)
+        {
+            cout << i << "  ";
+        }
+///////////////////////////////////////////////////////////
+cout << endl;
+///////////////////////////////////////////////////////////
+    double x{10};
+    cout << pow(x,2) << "\n";
+///////////////////////////////////////////////////////////
+cout << endl;
+///////////////////////////////////////////////////////////
+    fstream f;
+    f.open("t.txt",fstream::in|fstream::out|fstream::app);
+    f << "texto" << "\n";
+    f.close();
+///////////////////////////////////////////////////////////
+cout << endl;
+///////////////////////////////////////////////////////////
+
+    system("pause");
+    return 0;
+}
