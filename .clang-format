@@ -26,7 +26,7 @@ AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: Yes
-AttributeMacros: ['__capability', '__output', '__ununsed'] #not working
+# AttributeMacros: ['__capability', '__output', '__ununsed'] #not working
 BinPackArguments: true
 BinPackParameters: true
 # BitFieldColonSpacing: Both #not working
