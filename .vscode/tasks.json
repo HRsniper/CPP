@@ -14,6 +14,17 @@
     },
     {
       "type": "shell",
+      "label": "C++20: g++.exe Build Arquivo Selecionado",
+      "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
+      "args": ["-g","-std=c++2a", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
+      "options": {
+        "cwd": "C:/Desenvolvimento/msys64/mingw64/bin/"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build"
+    },
+    {
+      "type": "shell",
       "label": "C/C++: g++.exe Build OpenGL,GLFW,GLEW Arquivo Selecionado",
       "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
       "args": ["-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe", "-lopengl32", "-lgdi32", "-luser32", "-lkernel32", "-lglu32", /* "-lglfw3dll", */ "-lglfw3", "-lglew32"],

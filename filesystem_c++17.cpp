@@ -1,43 +1,42 @@
 // filesystem_path_example.cpp
 // compile by using: /EHsc /W4 /permissive- /std:c++17 (or /std:c++latest)
-#include <string>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
-#include <filesystem>
+#include <string>
 
-using namespace std;
-using namespace std::filesystem;
+// using namespace std;
+// using namespace std::filesystem;
 
-wstring DisplayPathInfo()
-{
-    // This path may or may not refer to an existing file. We are
-    // examining this path string, not file system objects.
-    path pathToDisplay(L"C:/FileSystemTest/SubDir3/SubDirLevel2/File2.txt ");
+std::wstring DisplayPathInfo() {
+  // This path may or may not refer to an existing file. We are
+  // examining this path string, not file system objects.
+  std::filesystem::path pathToDisplay(
+    L"C:/FileSystemTest/SubDir3/SubDirLevel2/File2.txt ");
 
-    wostringstream wos;
-    int i = 0;
-    wos << L"Displaying path info for: " << pathToDisplay << endl;
-    for (path::iterator itr = pathToDisplay.begin(); itr != pathToDisplay.end(); ++itr)
-    {
-        wos << L"path part: " << i++ << L" = " << *itr << endl;
-    }
+  std::wostringstream wos;
+  int                 i = 0;
+  wos << L"Displaying path info for: " << pathToDisplay << "\n";
+  for (std::filesystem::path::iterator itr = pathToDisplay.begin();
+       itr != pathToDisplay.end(); ++itr) {
+    wos << L"path part: " << i++ << L" = " << *itr << "\n";
+  }
 
-    wos << L"root_name() = " << pathToDisplay.root_name() << endl
-        << L"root_path() = " << pathToDisplay.root_path() << endl
-        << L"relative_path() = " << pathToDisplay.relative_path() << endl
-        << L"parent_path() = " << pathToDisplay.parent_path() << endl
-        << L"filename() = " << pathToDisplay.filename() << endl
-        << L"stem() = " << pathToDisplay.stem() << endl
-        << L"extension() = " << pathToDisplay.extension() << endl;
+  wos << L"root_name() = " << pathToDisplay.root_name() << "\n"
+      << L"root_path() = " << pathToDisplay.root_path() << "\n"
+      << L"relative_path() = " << pathToDisplay.relative_path() << "\n"
+      << L"parent_path() = " << pathToDisplay.parent_path() << "\n"
+      << L"filename() = " << pathToDisplay.filename() << "\n"
+      << L"stem() = " << pathToDisplay.stem() << "\n"
+      << L"extension() = " << pathToDisplay.extension() << "\n";
 
-    return wos.str();
+  return wos.str();
 }
 
-int main()
-{
-    wcout << DisplayPathInfo() << endl;
-    // wcout << ComparePaths() << endl; // see following example
-    wcout << endl << L"Press Enter to exit" << endl;
-    wstring input;
-    getline(wcin, input);
+int main() {
+  std::wcout << DisplayPathInfo() << "\n";
+  // wcout << ComparePaths() << "\n"; // see following example
+  std::wcout << "\n" << L"Press Enter to exit" << "\n";
+  std::wstring input;
+  std::getline(std::wcin, input);
 }
