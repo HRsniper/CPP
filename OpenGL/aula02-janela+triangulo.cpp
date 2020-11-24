@@ -1,6 +1,6 @@
 // https://www.youtube.com/channel/UCQ-W1KE9EYfdxhL6S4twUNw
 #define GLFW_DLL
-#include <GL/glfw3.h>
+#include <GLFW/glfw3.h>
 #include <GL/gl.h>
 
 int main(void)

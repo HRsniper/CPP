@@ -2,17 +2,32 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Launch Deno",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.ts",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "deno",
+      "runtimeArgs": [
+        "run",
+        "--inspect-brk=127.0.0.1:9229",
+        "--allow-all"
+      ],
+      "attachSimplePort": 9229
+    },
+
+    {
       "name": "(gdb) OpenGL,GLFW,GLEW Build e Debug Arquivo Selecionado",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/Desenvolvimento/MinGW/bin/gdb.exe",
+      "miDebuggerPath": "C:/Desenvolvimento/msys64/mingw64/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Habilitar a reformatação automática para gdb",
@@ -26,14 +41,14 @@
       "name": "(gdb)  Build e Debug Arquivo Selecionado",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/Desenvolvimento/MinGW/bin/gdb.exe",
+      "miDebuggerPath": "C:/Desenvolvimento/msys64/mingw64/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Habilitar a reformatação automática para gdb",
@@ -47,14 +62,14 @@
       "name": "(gdb) Debug Arquivo Selecionado",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/Desenvolvimento/MinGW/bin/gdb.exe",
+      "miDebuggerPath": "C:/Desenvolvimento/msys64/mingw64/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Habilitar a reformatação automática para gdb",

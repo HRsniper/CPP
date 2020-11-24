@@ -74,10 +74,14 @@
     "valarray": "cpp",
     "locale": "cpp",
     "ios": "cpp",
-    "bit": "cpp"
+    "bit": "cpp",
+    "any": "cpp",
+    "variant": "cpp"
   },
   "deno.enable": true,
   "deno.import_intellisense_origins": {
     "https://deno.land": true
-  }
+  },
+  // "deno.unstable": true,
+  // "deno.lint": true,
 }
