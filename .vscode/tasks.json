@@ -14,9 +14,20 @@
     },
     {
       "type": "shell",
-      "label": "C++20: g++.exe Build Arquivo Selecionado",
+      "label": "C++20: Build Arquivo Selecionado",
       "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
-      "args": ["-g","-std=c++2a", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
+      "args": ["-g", "-std=c++2a", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
+      "options": {
+        "cwd": "C:/Desenvolvimento/msys64/mingw64/bin/"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build"
+    },
+    {
+      "type": "shell",
+      "label": "C++20 Coroutines: Build Arquivo Selecionado",
+      "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
+      "args": ["-g", "-std=c++2a", "-fcoroutines", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
       "options": {
         "cwd": "C:/Desenvolvimento/msys64/mingw64/bin/"
       },

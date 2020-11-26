@@ -1,5 +1,6 @@
 {
   "files.associations": {
+    ".clang-format": "yaml",
     "ostream": "cpp",
     "typeinfo": "cpp",
     "filesystem": "cpp",
@@ -76,12 +77,17 @@
     "ios": "cpp",
     "bit": "cpp",
     "any": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp",
+    "ranges": "cpp",
+    "stop_token": "cpp",
+    "coroutine": "cpp"
   },
   "deno.enable": true,
   "deno.import_intellisense_origins": {
     "https://deno.land": true
-  },
+  }
   // "deno.unstable": true,
   // "deno.lint": true,
 }
