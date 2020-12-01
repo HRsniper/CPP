@@ -4,7 +4,7 @@
 // #define GLEW_BUILD
 // #include <GL/glew.h>
 
-// #include "Renderer.hpp"
+#include "Renderer.hpp"
 #include "VertexBuffer.hpp"
 #include "VertexBufferLayout.hpp"
 

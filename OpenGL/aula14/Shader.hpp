@@ -12,7 +12,7 @@
 #include <string>  //getline()
 #include <unordered_map>
 
-// #include "Renderer.hpp"
+#include "Renderer.hpp"
 
 struct ShaderProgramSrc {
   std::string VertexSrc;

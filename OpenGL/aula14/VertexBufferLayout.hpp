@@ -6,7 +6,7 @@
 
 #include <vector>
 
-// #include "Renderer.hpp"
+#include "Renderer.hpp"
 
 struct VertexBufferElement {
   unsigned int  type;
