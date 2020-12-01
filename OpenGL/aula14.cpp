@@ -1,27 +1,22 @@
 // http://docs.gl/
 #define GLEW_BUILD
 #define GLFW_DLL
-
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include <sstream> //Fluxo de string de entrada / saída
-#include <string>  //getline()
-
+#include <sstream>   //Fluxo de string de entrada / saída
+#include <string>    //getline()
 #include <windows.h> //DebugBreak();
 
-#include "aula11-abstracao-em-classes/IndexBuffer.hpp"
-#include "aula11-abstracao-em-classes/Renderer.hpp"
-#include "aula11-abstracao-em-classes/VertexBuffer.hpp"
-
-#include "aula12-abstracao-buffer-layout/VertexArray.hpp"
-#include "aula12-abstracao-buffer-layout/VertexBufferLayout.hpp"
-
-// #include "aula13-abstracao-shader-layout/ShaderLayout.hpp"
-#include "aula13-abstracao-shader-layout/Shader.hpp"
+#include "aula14/IndexBuffer.hpp"
+#include "aula14/Renderer.hpp"
+#include "aula14/Shader.hpp"
+#include "aula14/VertexArray.hpp"
+#include "aula14/VertexBuffer.hpp"
+#include "aula14/VertexBufferLayout.hpp"
 
 int main(int argc, const char *argv[]) {
   GLFWwindow *window;
@@ -30,11 +25,6 @@ int main(int argc, const char *argv[]) {
   if (!glfwInit()) {
     return -1;
   }
-
-  // set version
-  // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   /* Cria uma janela em modo de janela e seu contexto OpenGL */
   window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
@@ -60,29 +50,25 @@ int main(int argc, const char *argv[]) {
 
   {
 
-    /* array de buffer */
-    /* float positions[] = {-0.5f, -0.5f, 0.5f,  -0.5f, 0.5f,  0.5f,
-                         0.5f,  0.5f,  -0.5f, 0.5f,  -0.5f, -0.5f}; */
-
     // remover vertices duplicadas
     float positions[] = {
-        -0.5f, -0.5f, // 0
-        0.5f,  -0.5f, // 1
-        0.5f,  0.5f,  // 2
-        -0.5f, 0.5f   // 3
+      -0.5f, -0.5f, // 0
+      0.5f,  -0.5f, // 1
+      0.5f,  0.5f,  // 2
+      -0.5f, 0.5f   // 3
     };
     std::cout << positions << std::endl;
 
     /* index buffer */
     unsigned int indices[] = {
-        0, 1, 2, // 1 triangulo
-        2, 3, 0  // 1 triangulo
+      0, 1, 2, // 1 triangulo
+      2, 3, 0  // 1 triangulo
     };
 
     // error open core vao 3.3.0
     unsigned int vao;
-    GlCall_F_DebugBreak(glGenVertexArrays(1, &vao));
-    GlCall_F_DebugBreak(glBindVertexArray(vao));
+    GlCall(glGenVertexArrays(1, &vao));
+    GlCall(glBindVertexArray(vao));
 
     // buffer layout
     VertexArray va;
@@ -92,30 +78,28 @@ int main(int argc, const char *argv[]) {
 
     // buffer layout
     VertexBufferLayout layout;
-    layout.Push_F<float>(2);
+    layout.Push<float>(2);
     va.AddBuffer(vb, layout);
 
     /*index buffer*/
     IndexBuffer ib(indices, 6);
 
-    /* ShaderProgramSrc_S source =
-        ParserShader_F("D:/HR-DEV/C++/OpenGL/aula06-shader/Basic.shader"); */
-    ShaderLayout shader("aula06-shader/Basic460.shader");
-    shader.Bind_VincularA();
+    Shader shader("aula14/Basic460.shader");
+    shader.Bind();
 
     //                            rgb(red,green,blue,alfa)    0.0=0% , 1.0=100%
     shader.SetUniforms4f("u_Color", 0.0f, 1.0f, 0.0f, 1.0f);
 
     // vertex array
-    va.Bind_DesVincularA();
-    vb.Unbind_Desvincular();
-    ib.Unbind_Desvincular();
-    shader.Bind_DesVincularA();
+    va.UnBind();
+    vb.UnBind();
+    ib.UnBind();
+    shader.UnBind();
 
     // rgba
-    float r = 1.0f;
-    float g = 1.0f;
-    float b = 0.0f;
+    float r    = 1.0f;
+    float g    = 1.0f;
+    float b    = 0.0f;
     float alfa = 1.0f;
 
     float increment = 0.05f;
@@ -123,26 +107,20 @@ int main(int argc, const char *argv[]) {
     /* Loop até que o usuário feche a janela */
     while (!glfwWindowShouldClose(window)) {
       /* Renderizar aqui */
-      GlCall_F_DebugBreak(glClear(GL_COLOR_BUFFER_BIT));
-
-      /* draw triangulo */
-      // glDrawArrays(GL_TRIANGLES, 0, 6);
-
-      //             gl_t,indices,tipo,null
-      // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+      GlCall(glClear(GL_COLOR_BUFFER_BIT));
 
       // vertex array
-      shader.Bind_VincularA();
+      shader.Bind();
 
       shader.SetUniforms4f("u_Color", r, g, b, alfa);
 
-      ib.Bind_Vincular();
-      va.Bind_VincularA();
+      ib.Bind();
+      va.Bind();
 
       // uniform
 
       // lindando com errros
-      GlCall_F_DebugBreak(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+      GlCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
       // trocando de cor uniform auto
       if (r > 1.0f) {
@@ -158,7 +136,6 @@ int main(int argc, const char *argv[]) {
       /* Pesquisar e processar eventos */
       glfwPollEvents();
     }
-
   }
 
   glfwTerminate();
