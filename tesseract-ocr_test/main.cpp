@@ -45,12 +45,55 @@ int main(int argc, char const *argv[]) {
   // std::cout << "Confidence: " << confidence << std::endl;
   // std::cout << "Box: " << outBox << std::endl;
 
-  std::vector<std::string> r;
-  boost::split(r, outBox, boost::is_any_of("\n"));
+  std::vector<std::string> split_array;
+  boost::split(split_array, outBox, boost::is_any_of("\n"));
 
-  for (int i = 0; i < r.size() - 1; i++) {
-    std::cout << r[i] << std::endl;
-  }
+  // for (size_t i = 0; i < split_array.size(); i++) {
+  //   std::cout << split_array[i] << std::endl;
+  // }
+
+  std::vector<std::string> sub_split_array0;
+  boost::split(sub_split_array0, split_array[0], boost::is_any_of(" "));
+
+  std::vector<std::string> sub_split_array1;
+  boost::split(sub_split_array1, split_array[1], boost::is_any_of(" "));
+
+  std::vector<std::string> sub_split_array2;
+  boost::split(sub_split_array2, split_array[2], boost::is_any_of(" "));
+
+  std::vector<std::string> sub_split_array3;
+  boost::split(sub_split_array3, split_array[3], boost::is_any_of(" "));
+
+  std::vector<std::string> sub_split_array4;
+  boost::split(sub_split_array4, split_array[4], boost::is_any_of(" "));
+
+  std::vector<std::string> sub_split_array5;
+  boost::split(sub_split_array5, split_array[5], boost::is_any_of(" "));
+
+  std::vector<std::string> sub_split_array6;
+  boost::split(sub_split_array6, split_array[6], boost::is_any_of(" "));
+
+  std::vector<std::string> sub_split_array7;
+  boost::split(sub_split_array7, split_array[7], boost::is_any_of(" "));
+
+  cv::Point pt1 = cv::Point(std::stoi(sub_split_array0[1]), std::stoi(sub_split_array0[2]));
+  // cv::Point y = cv::Point(std::stoi(sub_split_array0[2]));
+  cv::Point pt2 = cv::Point(std::stoi(sub_split_array0[3]), std::stoi(sub_split_array0[4]));
+  // cv::Point h = cv::Point(std::stoi(sub_split_array0[4]));
+  std::cout << pt1 << std::endl;
+  std::cout << pt2 << std::endl;
+
+  cv::Scalar color = cv::Scalar(0, 0, 255);
+
+  cv::rectangle(img, pt1, pt2, color, cv::FILLED, cv::LINE_8, 0);
+
+  // std::vector<std::vector<std::string>> expect = {
+  //   // {"text","x","y","width","height"}
+  //   { "H", "6", "50", "61", "107", "0" },    { "R", "73", "50", "129", "107", "0" },
+  //   { "s", "158", "49", "202", "92", "0" },  { "n", "209", "50", "254", "92", "0" },
+  //   { "i", "263", "50", "280", "107", "0" }, { "p", "290", "34", "336", "92", "0" },
+  //   { "e", "340", "49", "389", "92", "0" },  { "r", "396", "50", "429", "92", "0" }
+  // };
 
   // destruindo e limpando tesseract OCR engine
   tesseract->Clear();
