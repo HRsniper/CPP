@@ -17,21 +17,21 @@ int main(int argc, char const *argv[]) {
   // Redimensiona uma imagem. com uma escala definida
   resize(img, imgResize, Size(500, 300));
 
-  // Redimensiona uma imagem. com uma escala dinamica
+  // Redimensiona uma imagem. com uma escala dinâmica
   resize(img, imgResize_D, Size(), 0.5, 0.5);
 
   // Crop images
   Rect roi(1, 1, 130, 100);
   imgCrop = img(roi);
 
-  cout << img.size() << endl;
-  cout << imgResize.size() << endl;
-  cout << imgResize_D.size() << endl;
-  cout << imgCrop.size() << endl;
+  cout << "Original: " << img.size() << endl;
+  cout << "Resize: " << imgResize.size() << endl;
+  cout << "Resize Dynamic: " << imgResize_D.size() << endl;
+  cout << "Crop: " << imgCrop.size() << endl;
 
   imshow("Image", img);
   imshow("Image Resize", imgResize);
-  imshow("Image Resize Dinamic", imgResize_D);
+  imshow("Image Resize Dynamic", imgResize_D);
   imshow("Image Crop", imgCrop);
 
   waitKey(0); // Aguardando ate pressionamento de tecla

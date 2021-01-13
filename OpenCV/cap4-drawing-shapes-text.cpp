@@ -27,7 +27,7 @@ int main(int argc, char const *argv[]) {
   cout <<"Original: "<< img.size() << endl;
   cout <<"Resize: "<< imgResize.size() << endl;
   cout <<"Resize Dynamic: "<< imgResize_D.size() << endl;
-  cout <<"Crop"<< imgCrop.size() << endl;
+  cout <<"Crop: "<< imgCrop.size() << endl;
 
   imshow("Image", img);
   imshow("Image Resize", imgResize);
