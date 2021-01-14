@@ -83,9 +83,7 @@ int main(int argc, char const *argv[]) {
   std::cout << pt1 << std::endl;
   std::cout << pt2 << std::endl;
 
-  cv::Scalar color = cv::Scalar(0, 0, 255);
-
-  cv::rectangle(img, pt1, pt2, color, cv::FILLED, cv::LINE_8, 0);
+  cv::rectangle(img, cv::Point(6, 50), cv::Point(61, 107), cv::Scalar(0, 0, 255));
 
   // std::vector<std::vector<std::string>> expect = {
   //   // {"text","x","y","width","height"}
