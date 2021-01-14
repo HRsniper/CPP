@@ -19,7 +19,8 @@ int main(int argc, char const *argv[]) {
   cvtColor(img, imgGray, COLOR_BGR2GRAY);
 
   // Essa função convolve a imagem de origem com o kernel gaussiano (blur) especificado.
-  GaussianBlur(img, imgBlur, Size(7, 7), 5, 0);
+  //Size() Classe de modelo para especificar o tamanho de uma imagem ou retângulo.
+  GaussianBlur(imgGray, imgBlur, Size(7, 7), 5, 0);
 
   // Essa função encontra bordas na imagem de entrada e as marca nas bordas do mapa de saída usando o
   // algoritmo Canny.
