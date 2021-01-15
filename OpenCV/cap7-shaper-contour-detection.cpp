@@ -20,15 +20,15 @@ void getContours(Mat imgDilate, Mat img) {
   // drawContours(img, contours, -1, Scalar(0, 255, 0), 2);
 
   /* remove noise */
+  vector<vector<Point>> contoursPoly(contours.size());
+  vector<Rect>          boundRect(contours.size());
+  string                objectType;
+
   for (size_t i = 0; i < contours.size(); i++) {
     // Calcula uma área de contorno.
     double area = contourArea(contours[i]);
 
     cout << "area" << i << ": " << area << endl;
-
-    vector<vector<Point>> contoursPoly(contours.size());
-    vector<Rect>          boundRect(contours.size());
-    string                objectType;
 
     if (area > 1000) {
       // drawContours(img, contours, i, Scalar(0, 255, 0), 2);
