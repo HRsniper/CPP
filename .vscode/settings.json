@@ -82,12 +82,19 @@
     "concepts": "cpp",
     "ranges": "cpp",
     "stop_token": "cpp",
-    "coroutine": "cpp"
+    "coroutine": "cpp",
+    "*.ipp": "cpp",
+    "strstream": "cpp",
+    "source_location": "cpp",
+    "numbers": "cpp",
+    "span": "cpp"
   },
-  "deno.enable": true,
+  /* ,"deno.enable": true,
   "deno.import_intellisense_origins": {
     "https://deno.land": true
-  }
+  } */
   // "deno.unstable": true,
   // "deno.lint": true,
+  // "elixirLS.projectDir": "",
+  // "python.pythonPath": "c:\\Desenvolvimento\\Python_3.9\\python.exe"
 }

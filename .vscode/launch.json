@@ -11,7 +11,27 @@
       "runtimeArgs": ["run", "--inspect-brk=127.0.0.1:9229", "--allow-all"],
       "attachSimplePort": 9229
     },
-
+    {
+      "name": "(gdb)  OpenCV, Tesseract Build e Debug Arquivo Selecionado",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/Desenvolvimento/msys64/mingw64/bin/gdb.exe",
+      "setupCommands": [
+        {
+          "description": "Habilitar a reformatação automática para gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "C/C++ 20: g++.exe Build OpenCV, Tesseract Arquivo Selecionado"
+    },
     {
       "name": "(gdb) OpenGL,GLFW,GLEW Build e Debug Arquivo Selecionado",
       "type": "cppdbg",

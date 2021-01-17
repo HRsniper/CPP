@@ -10,5 +10,11 @@
     "prefix": "con",
     "body": ["console.log('$0');"],
     "description": "saida para console"
+  },
+  "describe test Jest": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "des",
+    "body": ["describe('', () => {\n  test('', () => {\n    $0  \n  });\n});"],
+    "description": "saida para console"
   }
 }
