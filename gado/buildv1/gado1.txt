@@ -1,9 +1,0 @@
-Data: 29/02/2020
-Macho 0-12: 1
-Femea 0-12: 1
-Macho 13-24: 1
-Femea 13-24: 1
-Macho 25-32: 1
-Femea 25-32: 1
-Macho 36+: 1
-Femea 36+: 1

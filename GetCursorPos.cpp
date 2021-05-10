@@ -10,5 +10,7 @@ int main() {
 
   std::cout << cursorPos.x << " " << cursorPos.y << "\n";
 
+  system("pause");
+
   return 0;
 }
