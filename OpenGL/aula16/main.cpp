@@ -67,7 +67,7 @@ int main(int argc, const char *argv[]) {
       2, 3, 0  // 1 triangulo
     };
 
-    VertexArray        va;                                   // buffer layout
+    VertexArray        va;                                   // vertex array
     VertexBuffer       vb(positions, 4 * 2 * sizeof(float)); // vertex buffer
     IndexBuffer        ib(indices, 6);                       // index buffer
     VertexBufferLayout layout;                               // buffer layout
@@ -81,12 +81,6 @@ int main(int argc, const char *argv[]) {
     // Texture texture("textures/phone.png");
     // texture.Bind();
     // shader.SetUniform1i("u_Texture", 0);
-
-    // vertex array
-    va.Unbind();
-    vb.Unbind();
-    ib.Unbind();
-    shader.Unbind();
 
     // rgba(red,green,blue,alfa)    0.0=0% , 1.0=100%
     float r    = 1.0f;
