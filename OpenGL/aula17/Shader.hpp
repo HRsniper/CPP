@@ -26,7 +26,7 @@ private:
   std::string                          m_FilePath;
   std::unordered_map<std::string, int> m_UniformLocationCache;
 
-  unsigned int GetUniformLocation(const std::string &name) {
+  int GetUniformLocation(const std::string &name) {
 
     if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end()) {
       return m_UniformLocationCache[name];
@@ -157,19 +157,19 @@ public:
   void Unbind() const { GlCall(glUseProgram(0)); };
 
   // set uniforms
-  void SetUniforms4f(const std::string &name, float f0, float f1, float f2, float f3) {
+  void SetUniform4f(const std::string &name, float f0, float f1, float f2, float f3) {
 
     GlCall(glUniform4f(GetUniformLocation(name), f0, f1, f2, f3));
   };
 
-  void SetUniforms1f(const std::string &name, float value) {
+  void SetUniform1f(const std::string &name, float value) {
 
     GlCall(glUniform1f(GetUniformLocation(name), value));
   };
 
-  // void SetUniforms1i(const std::string &name, int value) {
-  //   GlCall(glUniform1i(GetUniformLocation(name), value));
-  // }
+  void SetUniform1i(const std::string &name, int value) {
+    GlCall(glUniform1i(GetUniformLocation(name), value));
+  }
 };
 
 #endif

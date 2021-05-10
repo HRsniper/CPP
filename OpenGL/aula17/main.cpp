@@ -5,12 +5,16 @@
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+// #include "lib/stb_image/stb_image.h"
+
 #include <iostream>
 
 #include "Debug.hpp"
 #include "IndexBuffer.hpp"
 #include "Renderer.hpp"
 #include "Shader.hpp"
+#include "Texture.hpp"
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
 #include "VertexBufferLayout.hpp"
@@ -55,10 +59,10 @@ int main(int argc, const char *argv[]) {
 
     // remover vertices duplicadas
     float positions[] = {
-      -0.5f, -0.5f, //  0.0f, 0.0f, // 0
-      0.5f,  -0.5f, //  1.0f, 0.0f, // 1
-      0.5f,  0.5f,  //  1.0f, 1.0f, // 2
-      -0.5f, 0.5f,  //  0.0f, 1.0f  // 3
+      -0.5f, -0.5f, 0.0f, 0.0f, // 0
+      0.5f,  -0.5f, 1.0f, 0.0f, // 1
+      0.5f,  0.5f,  1.0f, 1.0f, // 2
+      -0.5f, 0.5f,  0.0f, 1.0f  // 3
     };
 
     /* index buffer */
@@ -67,20 +71,24 @@ int main(int argc, const char *argv[]) {
       2, 3, 0  // 1 triangulo
     };
 
+    GlCall(glEnable(GL_BLEND));
+    GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
     VertexArray        va;                                   // vertex array
-    VertexBuffer       vb(positions, 4 * 2 * sizeof(float)); // vertex buffer
+    VertexBuffer       vb(positions, 4 * 4 * sizeof(float)); // vertex buffer
     IndexBuffer        ib(indices, 6);                       // index buffer
     VertexBufferLayout layout;                               // buffer layout
 
+    layout.PushFloat(2);
     layout.PushFloat(2);
     va.AddBuffer(vb, layout);
 
     Shader shader("shaders/Basic.shader");
     shader.Bind();
 
-    // Texture texture("textures/phone.png");
-    // texture.Bind();
-    // shader.SetUniform1i("u_Texture", 0);
+    Texture texture("textures/cpp.png");
+    texture.Bind(0);
+    shader.SetUniform1i("u_Texture", 0);
 
     // rgba(red,green,blue,alfa)    0.0=0% , 1.0=100%
     float r    = 1.0f;
@@ -99,7 +107,7 @@ int main(int argc, const char *argv[]) {
 
       // vertex array
       shader.Bind();
-      shader.SetUniforms4f("u_Color", r, g, b, alfa);
+      shader.SetUniform4f("u_Color", r, g, b, alfa);
 
       renderer.Draw(va, ib, shader);
 
