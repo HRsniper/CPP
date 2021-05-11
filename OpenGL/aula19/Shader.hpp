@@ -3,6 +3,7 @@
 #define SHADERLAYOUT_HPP
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 #include <cstdlib>
 #include <fstream>
@@ -169,6 +170,10 @@ public:
 
   void SetUniform1i(const std::string &name, int value) {
     GlCall(glUniform1i(GetUniformLocation(name), value));
+  }
+
+  void SetUniformMat4f(const std::string &name, const glm::mat4 &matrix) {
+    GlCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
   }
 };
 

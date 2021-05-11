@@ -8,8 +8,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 // #include "lib/stb_image/stb_image.h"
 
-// #include <glm/glm.hpp>
-// #include <glm/gtc/matrix_transform.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <iostream>
 
@@ -86,7 +86,7 @@ int main(int argc, const char *argv[]) {
     layout.PushFloat(2);
     va.AddBuffer(vb, layout);
 
-    // glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
 
     Shader shader("shaders/Basic.shader");
     shader.Bind();
@@ -94,6 +94,7 @@ int main(int argc, const char *argv[]) {
     Texture texture("textures/opengl.png");
     texture.Bind(0);
     shader.SetUniform1i("u_Texture", 0);
+    shader.SetUniformMat4f("u_MVP", proj);
 
     // rgba(red,green,blue,alfa)    0.0=0% , 1.0=100%
     float r    = 1.0f;
