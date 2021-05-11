@@ -11,6 +11,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <cmath>
 #include <iostream>
 
 #include "Debug.hpp"
@@ -37,7 +38,10 @@ int main(int argc, const char *argv[]) {
   // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   /* Cria uma janela em modo de janela e seu contexto OpenGL */
-  window = glfwCreateWindow(640, 480, "OpenGL Course", NULL, NULL);
+  int windowHeight = 480;
+  int windowWidth  = floor(windowHeight * 1.777777777777778);
+  std::cout << "W: " << windowWidth << ", H: " << windowHeight << std::endl;
+  window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL Course", NULL, NULL);
   if (!window) {
     std::cout << "Failed to open GLFW window" << std::endl;
     glfwTerminate();
@@ -62,10 +66,10 @@ int main(int argc, const char *argv[]) {
 
     // remover vertices duplicadas
     float positions[] = {
-      -0.5f, -0.5f, 0.0f, 0.0f, // 0
-      0.5f,  -0.5f, 1.0f, 0.0f, // 1
-      0.5f,  0.5f,  1.0f, 1.0f, // 2
-      -0.5f, 0.5f,  0.0f, 1.0f  // 3
+      100.0f, 100.0f, 0.0f, 0.0f, // 0
+      200.0f, 100.0f, 1.0f, 0.0f, // 1
+      200.0f, 200.0f, 1.0f, 1.0f, // 2
+      100.0f, 200.0f, 0.0f, 1.0f  // 3
     };
 
     /* index buffer */
@@ -86,7 +90,10 @@ int main(int argc, const char *argv[]) {
     layout.PushFloat(2);
     va.AddBuffer(vb, layout);
 
-    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    glm::mat4 projection = glm::ortho(0.0f, float(windowWidth), 0.0f, float(windowHeight), -1.0f, 1.0f);
+    glm::vec4 verticePosition(100.0f, 100.0f, 0.0f, 1.0f);
+
+    glm::vec4 result = projection * verticePosition;
 
     Shader shader("shaders/Basic.shader");
     shader.Bind();
@@ -94,7 +101,7 @@ int main(int argc, const char *argv[]) {
     Texture texture("textures/opengl.png");
     texture.Bind(0);
     shader.SetUniform1i("u_Texture", 0);
-    shader.SetUniformMat4f("u_MVP", proj);
+    shader.SetUniformMat4f("u_MVP", projection);
 
     // rgba(red,green,blue,alfa)    0.0=0% , 1.0=100%
     float r    = 1.0f;
