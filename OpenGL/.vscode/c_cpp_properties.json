@@ -9,8 +9,7 @@
       "includePath": [
         "${default}",
         "C:/Desenvolvimento/msys64/mingw64/include/opencv4",
-        "D:/HR-DEV/C++/OpenGL/aula22/lib/imgui",
-        "D:/HR-DEV/C++/OpenGL/aula22/lib/imgui/backends"
+        "D:/HR-DEV/C++/OpenGL/aula22/lib/imgui"
       ]
     }
   ],
