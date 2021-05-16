@@ -124,7 +124,7 @@ int main(int argc, const char *argv[]) {
     ImGui::StyleColorsDark();
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(window, true);
-//    ImGui_ImplOpenGL3_Init();
+    ImGui_ImplOpenGL3_Init("#version 460");
 
     // Our state
     bool   show_demo_window    = true;
@@ -137,9 +137,9 @@ int main(int argc, const char *argv[]) {
       renderer.Clear();
 
       // Start the Dear ImGui frame
-//      ImGui_ImplOpenGL3_NewFrame();
+      ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplGlfw_NewFrame();
-//      ImGui::NewFrame();
+      ImGui::NewFrame();
 
       // vertex array
       shader.Bind();
@@ -183,7 +183,7 @@ int main(int argc, const char *argv[]) {
 
       // Rendering
       ImGui::Render();
-//      ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+      ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
       glfwSwapBuffers(window); /* Troca os buffers frontal e traseiro */
       glfwPollEvents();        /* Pesquisar e processar eventos */
@@ -191,7 +191,7 @@ int main(int argc, const char *argv[]) {
   }
 
   // Cleanup
-//  ImGui_ImplOpenGL3_Shutdown();
+  ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
   ImGui::DestroyContext();
 
