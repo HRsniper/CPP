@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project("openGL-course" VERSION 1.0)
+project("opengl-course" VERSION 1.0)
 message("Project name: " ${CMAKE_PROJECT_NAME})
 
 # set(CMAKE_CXX_STANDARD 17)

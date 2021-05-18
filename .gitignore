@@ -36,8 +36,12 @@ test_cmake/tutorial.cpp
 test_cmake/TutorialConfig.h
 test_cmake/TutorialConfig.h.in
 
-!libimgui.a
+# Cmake
 CMakeFiles/
 cmake_install.cmake
 CMakeCache.txt
+Makefile
+
+# imgui
+!libimgui.a
 imgui.ini

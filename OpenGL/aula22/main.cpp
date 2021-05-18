@@ -95,10 +95,7 @@ int main(int argc, const char *argv[]) {
     va.AddBuffer(vb, layout);
 
     glm::mat4 projection = glm::ortho(0.0f, float(windowWidth), 0.0f, float(windowHeight), -1.0f, 1.0f);
-    glm::mat4 view       = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0));  // -100 left
-    glm::mat4 model      = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0)); // 200 right 200 bottom
-
-    glm::mat4 modelViewProjection = projection * view * model;
+    glm::mat4 view       = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0)); // -100 left
 
     Shader shader("shaders/Basic.shader");
     shader.Bind();
@@ -106,7 +103,6 @@ int main(int argc, const char *argv[]) {
     Texture texture("textures/opengl.png");
     texture.Bind(0);
     shader.SetUniform1i("u_Texture", 0);
-    shader.SetUniformMat4f("u_MVP", modelViewProjection);
 
     // rgba(red,green,blue,alfa)    0.0=0% , 1.0=100%
     float r    = 1.0f;
@@ -126,10 +122,7 @@ int main(int argc, const char *argv[]) {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 460");
 
-    // Our state
-    bool   show_demo_window    = true;
-    bool   show_another_window = false;
-    ImVec4 clear_color         = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    glm::vec3 translation(200, 200, 0);
 
     /* Loop até que o usuário feche a janela */
     while (!glfwWindowShouldClose(window)) {
@@ -141,9 +134,12 @@ int main(int argc, const char *argv[]) {
       ImGui_ImplGlfw_NewFrame();
       ImGui::NewFrame();
 
-      // vertex array
+      glm::mat4 model               = glm::translate(glm::mat4(1.0f), translation); // 200 right 200 bottom
+      glm::mat4 modelViewProjection = projection * view * model;
+
       shader.Bind();
       shader.SetUniform4f("u_Color", r, g, b, alfa);
+      shader.SetUniformMat4f("u_MVP", modelViewProjection);
 
       renderer.Draw(va, ib, shader);
 
@@ -158,26 +154,15 @@ int main(int argc, const char *argv[]) {
 
       // Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
       {
-        static float f       = 0.0f;
-        static int   counter = 0;
+        // Create a window called "Hello, world!" and append into it.
+        ImGui::Begin("OpenGL Course");
 
-        ImGui::Begin("Hello, world!"); // Create a window called "Hello, world!" and append into it.
-
-        ImGui::Text("This is some useful text."); // Display some text (you can use a format strings too)
-        ImGui::Checkbox("Demo Window", &show_demo_window); // Edit bools storing our window open/close state
-        ImGui::Checkbox("Another Window", &show_another_window);
-
-        ImGui::SliderFloat("float", &f, 0.0f, 1.0f); // Edit 1 float using a slider from 0.0f to 1.0f
-        ImGui::ColorEdit3("clear color", (float *)&clear_color); // Edit 3 floats representing a color
-
-        if (ImGui::Button(
-              "Button")) // Buttons return true when clicked (most widgets return true when edited/activated)
-          counter++;
-        ImGui::SameLine();
-        ImGui::Text("counter = %d", counter);
+        // Edit 1 float using a slider from 0.0f to width of windown in float
+        ImGui::SliderFloat3("Translation", &translation.x, 0.0f, float(windowWidth));
 
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
                     ImGui::GetIO().Framerate);
+
         ImGui::End();
       }
 
