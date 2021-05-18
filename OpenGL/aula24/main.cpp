@@ -26,6 +26,7 @@
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
 #include "VertexBufferLayout.hpp"
+#include "tests/TestClearColor.hpp"
 
 int main(int argc, const char *argv[]) {
   GLFWwindow *window;
@@ -67,51 +68,8 @@ int main(int argc, const char *argv[]) {
   std::cout << "Using GL Version: " << glGetString(GL_VERSION) << std::endl;
 
   {
-
-    // remover vertices duplicadas
-    // -50 50 center
-    float positions[] = {
-      -50.0f, -50.0f, 0.0f, 0.0f, // 0
-      50.0f,  -50.0f, 1.0f, 0.0f, // 1
-      50.0f,  50.0f,  1.0f, 1.0f, // 2
-      -50.0f, 50.0f,  0.0f, 1.0f  // 3
-    };
-
-    /* index buffer */
-    unsigned int indices[] = {
-      0, 1, 2, // 1 triangulo
-      2, 3, 0  // 1 triangulo
-    };
-
     GlCall(glEnable(GL_BLEND));
     GlCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
-    VertexArray        va;                                   // vertex array
-    VertexBuffer       vb(positions, 4 * 4 * sizeof(float)); // vertex buffer
-    IndexBuffer        ib(indices, 6);                       // index buffer
-    VertexBufferLayout layout;                               // buffer layout
-
-    layout.PushFloat(2);
-    layout.PushFloat(2);
-    va.AddBuffer(vb, layout);
-
-    glm::mat4 projection = glm::ortho(0.0f, float(windowWidth), 0.0f, float(windowHeight), -1.0f, 1.0f);
-    glm::mat4 view       = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0)); // -100 left
-
-    Shader shader("shaders/Basic.shader");
-    shader.Bind();
-
-    Texture texture("textures/opengl.png");
-    texture.Bind(0);
-    shader.SetUniform1i("u_Texture", 0);
-
-    // rgba(red,green,blue,alfa)    0.0=0% , 1.0=100%
-    float r    = 1.0f;
-    float g    = 1.0f;
-    float b    = 0.0f;
-    float alfa = 1.0f;
-
-    float increment = 0.05f;
 
     Renderer renderer;
 
@@ -123,65 +81,22 @@ int main(int argc, const char *argv[]) {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 460");
 
-    glm::vec3 translationA(200, 200, 0);
-    glm::vec3 translationB(400, 400, 0);
+    test::TestClearColor test;
 
     /* Loop até que o usuário feche a janela */
     while (!glfwWindowShouldClose(window)) {
       /* Renderizar */
       renderer.Clear();
 
+      test.OnUpdate(0.0f);
+      test.OnRender();
+
       // Start the Dear ImGui frame
       ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplGlfw_NewFrame();
       ImGui::NewFrame();
 
-      // shader.Bind();
-
-      {
-        glm::mat4 model               = glm::translate(glm::mat4(1.0f), translationA); // 200 right 200 bottom
-        glm::mat4 modelViewProjection = projection * view * model;
-
-        shader.Bind();
-        shader.SetUniformMat4f("u_MVP", modelViewProjection);
-        renderer.Draw(va, ib, shader);
-      }
-
-      {
-        glm::mat4 model               = glm::translate(glm::mat4(1.0f), translationB); // 200 right 200 bottom
-        glm::mat4 modelViewProjection = projection * view * model;
-
-        shader.Bind();
-        shader.SetUniformMat4f("u_MVP", modelViewProjection);
-        renderer.Draw(va, ib, shader);
-      }
-
-      // shader.SetUniform4f("u_Color", r, g, b, alfa);
-
-      // trocando de cor uniform auto
-      if (r > 1.0f) {
-        increment = -0.05f;
-      } else if (r < 0.0f) {
-        increment = 0.05f;
-      }
-
-      r += increment;
-
-      // Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-      {
-        // Create a window called "Hello, world!" and append into it.
-        ImGui::Begin("OpenGL Course");
-
-        ImGui::Text("X Y Z");
-        // Edit 1 float using a slider from 0.0f to width of windown in float
-        ImGui::SliderFloat3("Translation A", &translationA.x, 0.0f, float(windowWidth));
-        ImGui::SliderFloat3("Translation B", &translationB.x, 0.0f, float(windowWidth));
-
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-                    ImGui::GetIO().Framerate);
-
-        ImGui::End();
-      }
+      test.OnImGuiRender();
 
       // Rendering
       ImGui::Render();
