@@ -29,6 +29,7 @@
 
 #include "tests/TestClearColor.hpp"
 #include "tests/TestMenu.hpp"
+#include "tests/TestTexture2D.hpp"
 
 int main(int argc, const char *argv[]) {
   GLFWwindow *window;
@@ -88,6 +89,7 @@ int main(int argc, const char *argv[]) {
     currentTest                 = testMenu;
 
     testMenu->RegisterTest<test::TestClearColor>("Clear color");
+    testMenu->RegisterTest<test::TestTexture2D>("Texture 2D");
 
     /* Loop até que o usuário feche a janela */
     while (!glfwWindowShouldClose(window)) {

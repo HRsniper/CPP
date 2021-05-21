@@ -17,8 +17,8 @@ private:
   std::vector<std::pair<std::string, std::function<Test *()>>> m_Tests;
 
 public:
-  TestMenu(Test *&m_CurrentTestPointer) : m_CurrentTest(m_CurrentTestPointer) {};
-  ~TestMenu() {};
+  TestMenu(Test *&m_CurrentTestPointer) : m_CurrentTest(m_CurrentTestPointer) {}
+  ~TestMenu() {}
 
   void OnImGuiRender() override {
     for (auto &test : m_Tests) {

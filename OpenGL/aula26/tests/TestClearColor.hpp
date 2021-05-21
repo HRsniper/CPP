@@ -14,8 +14,8 @@ private:
   float m_ClearColor[4];
 
 public:
-  TestClearColor() : m_ClearColor { 0.2f, 0.3f, 0.0f, 1.0f } {};
-  ~TestClearColor() {};
+  TestClearColor() : m_ClearColor { 0.2f, 0.3f, 0.0f, 1.0f } {}
+  ~TestClearColor() {}
 
   void OnUpdate(float deltatime) override {}
 
