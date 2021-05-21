@@ -26,7 +26,9 @@
 #include "VertexArray.hpp"
 #include "VertexBuffer.hpp"
 #include "VertexBufferLayout.hpp"
+
 #include "tests/TestClearColor.hpp"
+#include "tests/TestMenu.hpp"
 
 int main(int argc, const char *argv[]) {
   GLFWwindow *window;
@@ -81,22 +83,36 @@ int main(int argc, const char *argv[]) {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 460");
 
-    test::TestClearColor test;
+    test::Test *    currentTest = nullptr;
+    test::TestMenu *testMenu    = new test::TestMenu(currentTest);
+    currentTest                 = testMenu;
+
+    testMenu->RegisterTest<test::TestClearColor>("Clear color");
 
     /* Loop até que o usuário feche a janela */
     while (!glfwWindowShouldClose(window)) {
+      GlCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
       /* Renderizar */
       renderer.Clear();
-
-      test.OnUpdate(0.0f);
-      test.OnRender();
 
       // Start the Dear ImGui frame
       ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplGlfw_NewFrame();
       ImGui::NewFrame();
 
-      test.OnImGuiRender();
+      if (currentTest) {
+        currentTest->OnUpdate(0.0f);
+        currentTest->OnRender();
+
+        ImGui::Begin("Test");
+        if (currentTest != testMenu && ImGui::Button("< ")) {
+          delete currentTest;
+          currentTest = testMenu;
+        }
+
+        currentTest->OnImGuiRender();
+        ImGui::End();
+      }
 
       // Rendering
       ImGui::Render();
@@ -104,6 +120,11 @@ int main(int argc, const char *argv[]) {
 
       glfwSwapBuffers(window); /* Troca os buffers frontal e traseiro */
       glfwPollEvents();        /* Pesquisar e processar eventos */
+    }
+
+    delete currentTest;
+    if (currentTest != testMenu) {
+      delete testMenu;
     }
   }
 
