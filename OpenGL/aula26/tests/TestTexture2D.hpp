@@ -25,8 +25,12 @@ private:
   std::unique_ptr<VertexArray>  m_VertexArray;
   std::unique_ptr<VertexBuffer> m_VertexBuffer;
   std::unique_ptr<IndexBuffer>  m_IndexBuffer;
-  std::unique_ptr<Shader>       m_Shader;
-  std::unique_ptr<Texture>      m_Texture;
+  // std::unique_ptr<Shader>             m_Shader;
+  std::unique_ptr<Texture>            m_Texture;
+  std::unique_ptr<Renderer>           m_Renderer;
+  std::unique_ptr<VertexBufferLayout> m_Layout;
+
+  Shader m_Shader;
 
   // model and mvp will be created per object per draw
   glm::mat4 m_Projection;
@@ -42,6 +46,7 @@ private:
 
 public:
   TestTexture2D() :
+    m_Shader("shaders/Basic.shader"),
     m_Projection(glm::ortho(0.0f, float(m_WindowWidth), 0.0f, float(m_WindowHeight), -1.0f, 1.0f)), //
     m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))),
     m_ClearColor { 0.1f, 0.2f, 0.3f, 1.0f }, //                                //
@@ -67,25 +72,26 @@ public:
 
     m_VertexArray  = std::make_unique<VertexArray>();                                  // vertex array
     m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float)); // vertex buffer
+    m_IndexBuffer  = std::make_unique<IndexBuffer>(indices, 6);                        // index buffer
+    m_Layout       = std::make_unique<VertexBufferLayout>();                           // buffer layout
 
-    VertexBufferLayout layout; // buffer layout
-    layout.PushFloat(2);
-    layout.PushFloat(2);
+    m_Layout->PushFloat(2);
+    m_Layout->PushFloat(2);
+    m_VertexArray->AddBuffer(*m_VertexBuffer, *m_Layout);
 
-    m_VertexArray->AddBuffer(*m_VertexBuffer, layout);
-
-    m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 6); // index buffer
-
-    m_Shader = std::make_unique<Shader>("shaders/Basic.shader"); // shader
+    // m_Shader = std::make_unique<Shader>("shaders/Basic.shader"); // shader
     // m_Shader->Bind();
-    // m_Shader->SetUniform4f("u_Color", 0.5f, 0.6f, 0.7f, 1.0f);
+    m_Shader.Bind();
 
     m_Texture = std::make_unique<Texture>("textures/opengl.png"); // texture
     m_Texture->Bind(0);
-    m_Shader->SetUniform1i("u_Texture", 0);
+    // m_Shader->SetUniform1i("u_Texture", 0);
+    m_Shader.SetUniform1i("u_Texture", 0);
+
+    m_Renderer = std::make_unique<Renderer>();
   }
 
-  ~TestTexture2D() {}
+  ~TestTexture2D() { m_Shader.Unbind(); }
 
   void OnUpdate(float deltatime) override {}
 
@@ -93,24 +99,28 @@ public:
     GlCall(glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2], m_ClearColor[3]));
     GlCall(glClear(GL_COLOR_BUFFER_BIT));
 
-    Renderer renderer;
-
     {
       glm::mat4 model               = glm::translate(glm::mat4(1.0f), m_TranslationA);
       glm::mat4 modelViewProjection = m_Projection * m_View * model;
 
-      m_Shader->Bind();
-      m_Shader->SetUniformMat4f("u_MVP", modelViewProjection);
-      renderer.Draw(*m_VertexArray, *m_IndexBuffer, *m_Shader);
+      m_Shader.Bind();
+      m_Shader.SetUniformMat4f("u_MVP", modelViewProjection);
+      m_Renderer->Draw(*m_VertexArray, *m_IndexBuffer, m_Shader);
+      // m_Shader->Bind();
+      // m_Shader->SetUniformMat4f("u_MVP", modelViewProjection);
+      // m_Renderer->Draw(*m_VertexArray, *m_IndexBuffer, *m_Shader);
     }
 
     {
       glm::mat4 model               = glm::translate(glm::mat4(1.0f), m_TranslationB);
       glm::mat4 modelViewProjection = m_Projection * m_View * model;
 
-      m_Shader->Bind();
-      m_Shader->SetUniformMat4f("u_MVP", modelViewProjection);
-      renderer.Draw(*m_VertexArray, *m_IndexBuffer, *m_Shader);
+      m_Shader.Bind();
+      m_Shader.SetUniformMat4f("u_MVP", modelViewProjection);
+      m_Renderer->Draw(*m_VertexArray, *m_IndexBuffer, m_Shader);
+      // m_Shader->Bind();
+      // m_Shader->SetUniformMat4f("u_MVP", modelViewProjection);
+      // m_Renderer->Draw(*m_VertexArray, *m_IndexBuffer, *m_Shader);
     }
   }
 
