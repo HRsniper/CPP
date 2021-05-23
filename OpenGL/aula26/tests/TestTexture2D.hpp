@@ -22,17 +22,11 @@ namespace test {
 
 class TestTexture2D : public Test {
 private:
-  std::unique_ptr<VertexArray>        m_VertexArray;
-  std::unique_ptr<IndexBuffer>        m_IndexBuffer;
-  std::unique_ptr<VertexBuffer>       m_VertexBuffer;
-  std::unique_ptr<VertexBufferLayout> m_Layout;
-  std::unique_ptr<Shader>             m_Shader;
-  std::unique_ptr<Texture>            m_Texture;
-  std::unique_ptr<Renderer>           m_Renderer;
-
-  // float        m_ClearColor[4];
-  // float        m_Positions[16];
-  // unsigned int m_Indices[6];
+  std::unique_ptr<VertexArray>  m_VertexArray;
+  std::unique_ptr<VertexBuffer> m_VertexBuffer;
+  std::unique_ptr<IndexBuffer>  m_IndexBuffer;
+  std::unique_ptr<Shader>       m_Shader;
+  std::unique_ptr<Texture>      m_Texture;
 
   // model and mvp will be created per object per draw
   glm::mat4 m_Projection;
@@ -41,17 +35,19 @@ private:
   glm::vec3 m_TranslationA;
   glm::vec3 m_TranslationB;
 
-  int m_WindowHeight;
-  int m_WindowWidth;
+  float m_ClearColor[4];
+
+  int m_WindowHeight = 480;
+  int m_WindowWidth  = floor(m_WindowHeight * 1.777777777777778); // 16:9;
 
 public:
   TestTexture2D() :
-    m_WindowHeight(480), m_WindowWidth(floor(m_WindowHeight * 1.777777777777778)), // 16:9
-    m_TranslationA(200, 200, 0),                                                   // 200x 200y 0z
-    m_TranslationB(400, 400, 0),                                                   // 400x 400y 0z
-    m_Projection(glm::ortho(0.0f, float(m_WindowWidth), 0.0f, float(m_WindowHeight), -1.0f, 1.0f)),
-    m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))) {
-
+    m_Projection(glm::ortho(0.0f, float(m_WindowWidth), 0.0f, float(m_WindowHeight), -1.0f, 1.0f)), //
+    m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))),
+    m_ClearColor { 0.1f, 0.2f, 0.3f, 1.0f }, //                                //
+    m_TranslationA(200, 200, 0),             // 200x 200y 0z
+    m_TranslationB(400, 400, 0)              // 400x 400y 0z
+  {
     // -50, 50 = center
     float positions[] = {
       -50.0f, -50.0f, 0.0f, 0.0f, // 0
@@ -73,17 +69,19 @@ public:
     m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float)); // vertex buffer
 
     VertexBufferLayout layout; // buffer layout
+    layout.PushFloat(2);
+    layout.PushFloat(2);
 
-    layout.PushFloat(2);
-    layout.PushFloat(2);
     m_VertexArray->AddBuffer(*m_VertexBuffer, layout);
 
     m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 6); // index buffer
 
     m_Shader = std::make_unique<Shader>("shaders/Basic.shader"); // shader
-    m_Shader->Bind();
+    // m_Shader->Bind();
+    // m_Shader->SetUniform4f("u_Color", 0.5f, 0.6f, 0.7f, 1.0f);
 
     m_Texture = std::make_unique<Texture>("textures/opengl.png"); // texture
+    m_Texture->Bind(0);
     m_Shader->SetUniform1i("u_Texture", 0);
   }
 
@@ -92,11 +90,10 @@ public:
   void OnUpdate(float deltatime) override {}
 
   void OnRender() override {
-    GlCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+    GlCall(glClearColor(m_ClearColor[0], m_ClearColor[1], m_ClearColor[2], m_ClearColor[3]));
     GlCall(glClear(GL_COLOR_BUFFER_BIT));
 
     Renderer renderer;
-    m_Texture->Bind(0);
 
     {
       glm::mat4 model               = glm::translate(glm::mat4(1.0f), m_TranslationA);
@@ -118,21 +115,13 @@ public:
   }
 
   void OnImGuiRender() override {
-    glm::vec3 m_TranslationA(200, 200, 0);
-    glm::vec3 m_TranslationB(400, 400, 0);
-
-    // Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-    ImGui::Begin("OpenGL Course");
-
     ImGui::Text("X Y Z");
-    // Edit 1 float using a slider from 0.0f to width of windown in float
+
     ImGui::SliderFloat3("Translation A", &m_TranslationA.x, 0.0f, float(m_WindowWidth));
     ImGui::SliderFloat3("Translation B", &m_TranslationB.x, 0.0f, float(m_WindowWidth));
 
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
                 ImGui::GetIO().Framerate);
-
-    ImGui::End();
   }
 };
 

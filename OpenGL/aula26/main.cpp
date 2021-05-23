@@ -89,7 +89,7 @@ int main(int argc, const char *argv[]) {
     currentTest                 = testMenu;
 
     testMenu->RegisterTest<test::TestClearColor>("Clear color");
-    testMenu->RegisterTest<test::TestTexture2D>("Texture 2D");
+    testMenu->RegisterTest<test::TestTexture2D>("2D Texture");
 
     /* Loop até que o usuário feche a janela */
     while (!glfwWindowShouldClose(window)) {
@@ -107,7 +107,7 @@ int main(int argc, const char *argv[]) {
         currentTest->OnRender();
 
         ImGui::Begin("Test");
-        if (currentTest != testMenu && ImGui::Button("< ")) {
+        if (currentTest != testMenu && ImGui::Button("<=")) {
           delete currentTest;
           currentTest = testMenu;
         }
