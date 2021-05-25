@@ -23,24 +23,20 @@ struct ShaderProgramSource {
 
 class Shader {
 private:
-  unsigned int                         m_RendererID;
-  std::string                          m_FilePath;
-  std::unordered_map<std::string, int> m_UniformLocationCache;
+  unsigned int                                   m_RendererID;
+  std::string                                    m_FilePath;
+  mutable std::unordered_map<std::string, GLint> m_UniformLocationCache;
 
-  int GetUniformLocation(const std::string &name) {
+  GLint GetUniformLocation(const std::string &name) const {
 
     if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end()) {
       return m_UniformLocationCache[name];
     }
 
-    GlCall(int location = glGetUniformLocation(m_RendererID, name.c_str()));
-    // ASSERT(location != -1);
-    if (location != -1) {
+    GlCall(GLint location = glGetUniformLocation(m_RendererID, name.c_str()));
+    if (location == -1) {
       std::cout << "WARNING: uniform " << name << " not found/exist" << std::endl;
     }
-    /* else {
-       m_UniformLocationCache[name] = location;
-     } */
 
     m_UniformLocationCache[name] = location;
 
@@ -159,21 +155,43 @@ public:
 
   // set uniforms
   void SetUniform4f(const std::string &name, float f0, float f1, float f2, float f3) {
+    GLint location = GetUniformLocation(name);
+    GlCall(glUniform4f(location, f0, f1, f2, f3));
+  };
 
-    GlCall(glUniform4f(GetUniformLocation(name), f0, f1, f2, f3));
+  void SetUniform4f(const std::string &name, const glm::vec4 &value) {
+    GLint location = GetUniformLocation(name);
+    GlCall(glUniform4f(location, value.x, value.y, value.z, value.w));
   };
 
   void SetUniform1f(const std::string &name, float value) {
-
-    GlCall(glUniform1f(GetUniformLocation(name), value));
+    GLint location = GetUniformLocation(name);
+    GlCall(glUniform1f(location, value));
   };
 
   void SetUniform1i(const std::string &name, int value) {
-    GlCall(glUniform1i(GetUniformLocation(name), value));
+    GLint location = GetUniformLocation(name);
+    GlCall(glUniform1i(location, value));
+  }
+
+  void SetUniform2f(const std::string &name, const glm::vec2 &value) {
+    GLint location = GetUniformLocation(name);
+    GlCall(glUniform2f(location, value.x, value.y));
+  };
+
+  void SetUniform3f(const std::string &name, const glm::vec3 &value) {
+    GLint location = GetUniformLocation(name);
+    GlCall(glUniform3f(location, value.x, value.y, value.z));
+  };
+
+  void SetUniformMat3f(const std::string &name, const glm::mat3 &matrix) {
+    GLint location = GetUniformLocation(name);
+    GlCall(glUniformMatrix3fv(location, 1, GL_FALSE, &matrix[0][0]));
   }
 
   void SetUniformMat4f(const std::string &name, const glm::mat4 &matrix) {
-    GlCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
+    GLint location = GetUniformLocation(name);
+    GlCall(glUniformMatrix4fv(location, 1, GL_FALSE, &matrix[0][0]));
   }
 };
 
