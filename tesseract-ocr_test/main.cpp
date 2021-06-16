@@ -13,7 +13,7 @@
 
 int main(int argc, char const *argv[]) {
   // caminho para eng.traineddata
-  const char *tessdata_path = "C:/Desenvolvimento/msys64/mingw64/share/tessdata";
+  const char *tessdata_path = "C:/Desenvolvimento/msys2/mingw64/share/tessdata";
   std::string image_path    = cv::samples::findFile("testopencv.bmp");
 
   cv::Mat img = cv::imread(image_path, cv::IMREAD_COLOR);

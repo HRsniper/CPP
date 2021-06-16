@@ -5,19 +5,19 @@ message("Project name: " ${CMAKE_PROJECT_NAME})
 
 # set(CMAKE_CXX_STANDARD 17)
 
-find_library(GLEW32 glew32 PATHS "C:/Desenvolvimento/msys64/mingw64/lib")
-find_library(GLFW3 glfw3 PATHS "C:/Desenvolvimento/msys64/mingw64/lib")
-find_library(OPENGL32 opengl32 PATHS "C:/Desenvolvimento/msys64/mingw64/x86_64-w64-mingw32/lib")
-find_library(KERNEL32 kernel32 PATHS "C:/Desenvolvimento/msys64/mingw64/x86_64-w64-mingw32/lib")
-find_library(GLU32 glu32 PATHS "C:/Desenvolvimento/msys64/mingw64/x86_64-w64-mingw32/lib")
-find_library(GDI32 gdi32 PATHS "C:/Desenvolvimento/msys64/mingw64/x86_64-w64-mingw32/lib")
-find_library(USER32 user32 PATHS "C:/Desenvolvimento/msys64/mingw64/x86_64-w64-mingw32/lib")
-find_library(IMM32 imm32 PATHS "C:/Desenvolvimento/msys64/mingw64/x86_64-w64-mingw32/lib")
+find_library(GLEW32 glew32 PATHS "C:/Desenvolvimento/msys2/mingw64/lib")
+find_library(GLFW3 glfw3 PATHS "C:/Desenvolvimento/msys2/mingw64/lib")
+find_library(OPENGL32 opengl32 PATHS "C:/Desenvolvimento/msys2/mingw64/x86_64-w64-mingw32/lib")
+find_library(KERNEL32 kernel32 PATHS "C:/Desenvolvimento/msys2/mingw64/x86_64-w64-mingw32/lib")
+find_library(GLU32 glu32 PATHS "C:/Desenvolvimento/msys2/mingw64/x86_64-w64-mingw32/lib")
+find_library(GDI32 gdi32 PATHS "C:/Desenvolvimento/msys2/mingw64/x86_64-w64-mingw32/lib")
+find_library(USER32 user32 PATHS "C:/Desenvolvimento/msys2/mingw64/x86_64-w64-mingw32/lib")
+find_library(IMM32 imm32 PATHS "C:/Desenvolvimento/msys2/mingw64/x86_64-w64-mingw32/lib")
 find_library(IMGUI imgui PATHS "D:/HR-DEV/C++/OpenGL/aula22/lib/imgui")
 
 include_directories(
-  "C:/Desenvolvimento/msys64/mingw64/include"
-  "C:/Desenvolvimento/msys64/mingw64/x86_64-w64-mingw32/include"
+  "C:/Desenvolvimento/msys2/mingw64/include"
+  "C:/Desenvolvimento/msys2/mingw64/x86_64-w64-mingw32/include"
   "D:/HR-DEV/C++/OpenGL/aula22/lib/imgui"
 )
 

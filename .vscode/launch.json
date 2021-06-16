@@ -22,7 +22,7 @@
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/Desenvolvimento/msys64/mingw64/bin/gdb.exe",
+      "miDebuggerPath": "C:/Desenvolvimento/msys2/mingw64/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Habilitar a reformatação automática para gdb",
@@ -43,7 +43,7 @@
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/Desenvolvimento/msys64/mingw64/bin/gdb.exe",
+      "miDebuggerPath": "C:/Desenvolvimento/msys2/mingw64/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Habilitar a reformatação automática para gdb",
@@ -64,7 +64,7 @@
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/Desenvolvimento/msys64/mingw64/bin/gdb.exe",
+      "miDebuggerPath": "C:/Desenvolvimento/msys2/mingw64/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Habilitar a reformatação automática para gdb",
@@ -85,7 +85,7 @@
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "C:/Desenvolvimento/msys64/mingw64/bin/gdb.exe",
+      "miDebuggerPath": "C:/Desenvolvimento/msys2/mingw64/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Habilitar a reformatação automática para gdb",

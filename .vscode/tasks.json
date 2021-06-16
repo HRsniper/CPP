@@ -4,10 +4,10 @@
     {
       "type": "shell",
       "label": "C/C++: g++.exe Build Arquivo Selecionado",
-      "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
+      "command": "C:/Desenvolvimento/msys2/mingw64/bin/g++.exe",
       "args": ["-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
       "options": {
-        "cwd": "C:/Desenvolvimento/msys64/mingw64/bin/"
+        "cwd": "C:/Desenvolvimento/msys2/mingw64/bin/"
       },
       "problemMatcher": ["$gcc"],
       "group": "build"
@@ -15,10 +15,10 @@
     {
       "type": "shell",
       "label": "C++20: Build Arquivo Selecionado",
-      "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
+      "command": "C:/Desenvolvimento/msys2/mingw64/bin/g++.exe",
       "args": ["-g", "-std=c++2a", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
       "options": {
-        "cwd": "C:/Desenvolvimento/msys64/mingw64/bin/"
+        "cwd": "C:/Desenvolvimento/msys2/mingw64/bin/"
       },
       "problemMatcher": ["$gcc"],
       "group": "build"
@@ -26,10 +26,10 @@
     {
       "type": "shell",
       "label": "C++20 Coroutines: Build Arquivo Selecionado",
-      "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
+      "command": "C:/Desenvolvimento/msys2/mingw64/bin/g++.exe",
       "args": ["-g", "-std=c++2a", "-fcoroutines", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
       "options": {
-        "cwd": "C:/Desenvolvimento/msys64/mingw64/bin/"
+        "cwd": "C:/Desenvolvimento/msys2/mingw64/bin/"
       },
       "problemMatcher": ["$gcc"],
       "group": "build"
@@ -37,7 +37,7 @@
     {
       "type": "shell",
       "label": "C/C++: g++.exe Build OpenGL,GLFW,GLEW Arquivo Selecionado",
-      "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
+      "command": "C:/Desenvolvimento/msys2/mingw64/bin/g++.exe",
       "args": [
         "-g",
         "${file}",
@@ -53,7 +53,7 @@
         "-lglew32"
       ],
       "options": {
-        "cwd": "C:/Desenvolvimento/msys64/mingw64/bin/"
+        "cwd": "C:/Desenvolvimento/msys2/mingw64/bin/"
       },
       "problemMatcher": ["$gcc"],
       "group": "build"
@@ -61,7 +61,7 @@
     {
       "type": "shell",
       "label": "C/C++ 20: g++.exe Build OpenCV, Tesseract Arquivo Selecionado",
-      "command": "C:/Desenvolvimento/msys64/mingw64/bin/g++.exe",
+      "command": "C:/Desenvolvimento/msys2/mingw64/bin/g++.exe",
       "args": [
         "-g",
         "-std=c++2a",
@@ -78,7 +78,7 @@
         "-ltesseract"
       ],
       "options": {
-        "cwd": "C:/Desenvolvimento/msys64/mingw64/bin/"
+        "cwd": "C:/Desenvolvimento/msys2/mingw64/bin/"
       },
       "problemMatcher": ["$gcc"],
       "group": "build"
