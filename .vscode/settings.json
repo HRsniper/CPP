@@ -1,6 +1,7 @@
 {
   "files.associations": {
     ".clang-format": "yaml",
+    "docker-compose.yaml": "yaml",
     "ostream": "cpp",
     "typeinfo": "cpp",
     "filesystem": "cpp",
@@ -87,8 +88,28 @@
     "strstream": "cpp",
     "source_location": "cpp",
     "numbers": "cpp",
-    "span": "cpp"
+    "span": "cpp",
+    "__bit_reference": "cpp",
+    "__bits": "cpp",
+    "__config": "cpp",
+    "__debug": "cpp",
+    "__errc": "cpp",
+    "__functional_base": "cpp",
+    "__hash_table": "cpp",
+    "__locale": "cpp",
+    "__mutex_base": "cpp",
+    "__node_handle": "cpp",
+    "__nullptr": "cpp",
+    "__split_buffer": "cpp",
+    "__string": "cpp",
+    "__threading_support": "cpp",
+    "__tree": "cpp",
+    "__tuple": "cpp",
+    "queue": "cpp",
+    "semaphore": "cpp",
+    "stack": "cpp"
   },
+  "C_Cpp.errorSquiggles": "Disabled"
   /* ,"deno.enable": true,
   "deno.import_intellisense_origins": {
     "https://deno.land": true

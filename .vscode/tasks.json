@@ -82,6 +82,17 @@
       },
       "problemMatcher": ["$gcc"],
       "group": "build"
+    },
+    {
+      "type": "shell",
+      "label": "C/C++ 20: g++.exe Build Lib Fmt Arquivo Selecionado",
+      "command": "C:/Desenvolvimento/msys2/mingw64/bin/g++.exe",
+      "args": ["-g", "-std=c++2a", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe", "-lfmt"],
+      "options": {
+        "cwd": "C:/Desenvolvimento/msys2/mingw64/bin/"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build"
     }
   ]
 }
