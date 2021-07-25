@@ -1,6 +1,6 @@
 #include <boost/algorithm/string.hpp>
 #include <cmath>
-#include <fmt/core.h>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -31,21 +31,23 @@ string formatMinuts(int minuts) {
   return to_string(minuts);
 };
 
-string getFormatTime(int fullTimeInSeconds) {
+string getFormattedTime(int fullTimeInSeconds) {
   int oneHour = 3600;
   int hours   = floor(fullTimeInSeconds / oneHour);
   int minutes = floor((fullTimeInSeconds % oneHour) / 60);
 
   string hm("");
   hm.append(formatHours(hours));
+  hm.append("\033[0;32mh\033[0m");
   hm.append(":");
   hm.append(formatMinuts(minutes));
+  hm.append("\033[0;34mm\033[0m");
 
-  // cout << "getFormatTime: " << formatHours(hours) << ":" << formatMinuts(minutes) << "\n";
+  // cout << "getFormattedTime: " << formatHours(hours) << ":" << formatMinuts(minutes) << "\n";
   return hm;
 };
 
-int formatTimeInSeconds(string fullTime) {
+int formatfullTimeInSeconds(string fullTime) {
   vector<string> split;
   boost::split(split, fullTime, boost::is_any_of(":"));
 
@@ -58,36 +60,61 @@ int formatTimeInSeconds(string fullTime) {
 
   int hours   = stoi(formatedHours) * 60 * 60;
   int minutes = stoi(formatedMinuts) * 60;
-  // cout << "formatTimeInSeconds h: " << hours << " m:" << minutes << "\n";
+  // cout << "formatfullTimeInSeconds h: " << hours << " m:" << minutes << "\n";
 
   int fullTimeInSeconds = hours + minutes;
-  // cout << "formatTimeInSeconds: " << fullTimeInSeconds << "\n";
+  // cout << "formatfullTimeInSeconds: " << fullTimeInSeconds << "\n";
 
   return fullTimeInSeconds;
 };
 
+string inputStringSystem(int fullTimeInSeconds) {
+  string command("");
+  command.append("Shutdown /s /t ");
+  command.append(to_string(fullTimeInSeconds));
+
+  return command;
+};
+
 int main(int argc, char const *argv[]) {
+  system("title desligar automaticamente com tempo especificado");
+
   string time("");
 
-  cout << "digite um tempo em hh:mm | hh=Horas, mm=Minutos\n";
-  cout << "=> ";
+  cout << "digite um tempo para desligar o \033[0;36mSISTEMA\033[0m em "
+          "\033[0;32mhh\033[0m:\033[0;34mmm\033[0m"
+          " | \033[0;32mhh\033[0m=horas : \033[0;34mmm\033[0m=minutos\n";
+  cout << "\033[31;107m 9 \033[0m para cancelar o desligamento\n";
+  cout << "\033[0;31m=> \033[0m";
   cin >> time;
 
+  if (time == "9") {
+    cout << "\033[0;32mdesligamento cancelado...\033[0m\n";
+    system("Shutdown /a");
+    return 0;
+  }
+
   if (time.empty()) {
-    cout << "tempo invalido\n";
+    cout << "\033[0;31mtempo invalido\033[0m\n";
     return 1;
   }
 
   if (time.length() < 2 || time.length() > 4) {
-    cout << "tempo invalido\n";
+    cout << "\033[0;31mtempo invalido\033[0m\n";
     return 1;
   }
 
-  int timeInSeconds = formatTimeInSeconds(time);
-  cout << "timeInSeconds: " << timeInSeconds << "\n";
+  int fullTimeInSeconds = formatfullTimeInSeconds(time);
+  // cout << "fullTimeInSeconds: " << fullTimeInSeconds << "\n";
 
-  string formatedTimeHm = getFormatTime(timeInSeconds);
-  cout << "formatedTimeHm: " << formatedTimeHm << "\n";
+  string formattedTimeHm = getFormattedTime(fullTimeInSeconds);
+  // cout << "formattedTimeHm: " << formattedTimeHm << "\n";
 
+  cout << "\033[0;31mdesligando em:\033[0m " << formattedTimeHm << "\n";
+
+  string command = inputStringSystem(fullTimeInSeconds);
+  system(command.c_str());
+
+  // system("pause");
   return 0;
 }
