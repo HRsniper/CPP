@@ -1,3 +1,9 @@
+#ifdef _WIN32
+  #include <Windows.h>
+#else
+  #include <unistd.h>
+#endif
+
 #include <boost/algorithm/string.hpp>
 #include <cmath>
 #include <cstdlib>
@@ -91,6 +97,7 @@ int main(int argc, char const *argv[]) {
   if (time == "9") {
     cout << "\033[0;32mdesligamento cancelado...\033[0m\n";
     system("Shutdown /a");
+    Sleep(1000); // espera 1 segundo para finalizar o shutdown
     return 0;
   }
 
@@ -115,6 +122,6 @@ int main(int argc, char const *argv[]) {
   string command = inputStringSystem(fullTimeInSeconds);
   system(command.c_str());
 
-  // system("pause");
+  Sleep(1000); // espera 1 segundo para desligar o sistema
   return 0;
 }
