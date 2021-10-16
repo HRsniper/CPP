@@ -103,11 +103,13 @@ int main(int argc, char const *argv[]) {
 
   if (time.empty()) {
     cout << "\033[0;31mtempo invalido\033[0m\n";
+    Sleep(1000); // espera 1 segundo para mostra a menssagem
     return 1;
   }
 
-  if (time.length() < 2 || time.length() > 4) {
+  if (time.length() < 2 || time.length() > 5) {
     cout << "\033[0;31mtempo invalido\033[0m\n";
+    Sleep(1000); // espera 1 segundo para mostra a menssagem
     return 1;
   }
 
